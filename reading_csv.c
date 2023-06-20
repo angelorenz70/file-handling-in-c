@@ -51,39 +51,8 @@ char * read_csv(){
     return content;
 }
 
-char * changeTo_comma(char * content){
-    int count = 0;
-    char * copy_content;
-    copy_content = (char *)malloc(1025 * sizeof(char));
-    strcpy(copy_content, content);
-    copy_content[strlen(copy_content)] = '\0';
 
-    char * split_content, *split_space, * return_content, *line_content;
-    return_content = (char *)malloc(128 * sizeof(char));
-    line_content = (char *)malloc(128 * sizeof(char));
-    strcpy(line_content, " ");
-    strcpy(return_content, " ");
 
-    split_content = strtok(copy_content, "\n");
-    while(split_content != NULL){
-        printf("%s", split_content);
-        split_space = strtok(split_content, "\t");
-        while(split_space != NULL){
-            strcat(line_content, split_space);
-            strcat(line_content, ",");
-            split_space = strtok(NULL, "\t");
-        }
-        line_content[strlen(line_content)] = '\0';
-        strcat(return_content, line_content);
-        strcat(return_content, "\n");
-
-        split_content = strtok(NULL, "\n");
-    }
-    return_content[strlen(return_content)] = '\0';
-    printf("%s", return_content);
-    return return_content;
-
-}
 
 void output_file(char * content, char * extention){
     char * path;
@@ -98,13 +67,7 @@ void output_file(char * content, char * extention){
         printf("See the name output_file.txt in the directory output to view the result \n");
     }
 
-    if(strcmp(extention, "txt") == 0){
-        fprintf(ptr, " %s", content);
-    }else{
-        char * csv_content;
-        csv_content = changeTo_comma(content);
-        fprintf(ptr, " %s", csv_content);
-    }
+    fprintf(ptr, " %s", content);
 
     fclose(ptr);
 }
